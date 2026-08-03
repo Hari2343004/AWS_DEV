@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = 'ap-south-1'
+        ECR_REPO = '488435278570.dkr.ecr.ap-south-1.amazonaws.com/enterprise-devops'
+        EC2_HOST = '52.66.201.202'
+    }
+
+    stages {
+
+        stage('Deploy to EC2') {
+            steps {
+                sshagent(credentials: ['ec2-ssh']) {
+
+                    sh """
+                    ssh -o StrictHostKeyChecking=no ec2-user@${EC2_HOST} << 'EOF'
+
+                    aws ecr get-login-password --region ${AWS_REGION} | \
+                    docker login --username AWS --password-stdin ${ECR_REPO}
+
+                    docker pull ${ECR_REPO}:latest
+
+                    docker stop enterprise-web || true
+                    docker rm enterprise-web || true
+
+                    docker run -d --name enterprise-web -p 80:80 ${ECR_REPO}:latest
+
+                    docker ps
+
+                    EOF
+                    """
+
+                }
+            }
+        }
+
+    }
+}

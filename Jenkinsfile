@@ -83,3 +83,26 @@ pipeline {
 
     }
 }
+stage('Deploy to EC2') {
+    steps {
+        sshagent(credentials: ['ec2-ssh']) {
+            sh '''
+            ssh -o StrictHostKeyChecking=no ec2-user@52.66.201.202 << EOF
+
+            aws ecr get-login-password --region ap-south-1 | \
+            docker login --username AWS --password-stdin \
+            488435278570.dkr.ecr.ap-south-1.amazonaws.com
+
+            docker pull 488435278570.dkr.ecr.ap-south-1.amazonaws.com/enterprise-devops:latest
+
+            docker stop enterprise-web || true
+            docker rm enterprise-web || true
+
+            docker run -d --name enterprise-web -p 80:80 \
+            488435278570.dkr.ecr.ap-south-1.amazonaws.com/enterprise-devops:latest
+
+            EOF
+            '''
+        }
+    }
+}

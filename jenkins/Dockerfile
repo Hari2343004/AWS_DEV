@@ -1,12 +1,8 @@
-# ==========================================
-# Enterprise DevOps Jenkins Image
-# ==========================================
-
 FROM jenkins/jenkins:lts
 
 USER root
 
-# Update packages and install required tools
+# Install required packages
 RUN apt-get update && \
     apt-get install -y \
     git \
@@ -19,6 +15,10 @@ RUN apt-get update && \
     nano \
     openssh-client && \
     apt-get clean
+
+# Add jenkins user to docker group
+RUN groupadd -f docker && \
+    usermod -aG docker jenkins
 
 USER jenkins
 

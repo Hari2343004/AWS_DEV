@@ -1,36 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise DevOps Project</title>
-
-    <!-- External CSS -->
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Enterprise Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-    <div class="container">
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="logo">NEXUS<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="btn-primary" id="open-login">Employee Login</button>
+  </nav>
 
-<h1>Enterprise DevOps Learning Project - Feature UI Branch</h1>
-        <p>
-            This website is built to learn a complete Enterprise DevOps pipeline
-            from Git to Kubernetes and AWS.
-        </p>
+  <!-- Main Website Section -->
+  <div id="public-site">
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <span class="badge">Enterprise Solution</span>
+        <h1>Engineered for Precision & Impact</h1>
+        <p>Streamlining workforce operations, infrastructure management, and secure communications in a single, minimal interface.</p>
+        <a href="#about" class="btn-secondary">Explore Platform</a>
+      </div>
+    </section>
 
-        <button onclick="showMessage()">
-            Click Me
-        </button>
+    <!-- About Section -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2>About Nexus</h2>
+        <div class="divider"></div>
+        <p class="lead">We provide robust, secure, and intuitive enterprise management tools built for modern teams.</p>
+      </div>
+    </section>
 
-        <p id="message"></p>
+    <!-- Services Section -->
+    <section id="services" class="section bg-alt">
+      <div class="container">
+        <h2>Our Services</h2>
+        <div class="divider"></div>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Identity & Access</h3>
+            <p>Role-based authentication, unified logging, and perimeter defense.</p>
+          </div>
+          <div class="card">
+            <h3>Resource Planning</h3>
+            <p>Automated scheduling, Leave tracking, and internal team directory.</p>
+          </div>
+          <div class="card">
+            <h3>Local Mesh Net</h3>
+            <p>Secure peer-to-peer data synchronization for enterprise environments.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2>Contact Us</h2>
+        <div class="divider"></div>
+        <form class="contact-form" onsubmit="event.preventDefault();">
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Your Email" required>
+          <textarea placeholder="Message" rows="4" required></textarea>
+          <button type="submit" class="btn-primary">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <!-- Login Modal UI -->
+  <div class="modal" id="login-modal">
+    <div class="modal-content">
+      <span class="close-btn" id="close-login">&times;</span>
+      <h2>Employee Login</h2>
+      <p class="sub-text">Enter credentials to access dashboard</p>
+      <form id="login-form">
+        <div class="input-group">
+          <label>Employee ID / Email</label>
+          <input type="text" id="username" placeholder="e.g. EMP-9021" required>
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-primary btn-full">Login</button>
+      </form>
     </div>
+  </div>
 
-    <!-- External JavaScript -->
-    <script src="script.js"></script>
+  <!-- Static Dashboard View (Hidden by default) -->
+  <div id="dashboard-view" class="dashboard-container hidden">
+    <aside class="sidebar">
+      <div class="logo">NEXUS<span>.</span></div>
+      <ul class="sidebar-menu">
+        <li class="active">Overview</li>
+        <li>Network Status</li>
+        <li>Leaves & Attendance</li>
+        <li>Security Logs</li>
+      </ul>
+      <button class="btn-secondary btn-full logout-btn" id="logout-btn">Log Out</button>
+    </aside>
+    <main class="dashboard-main">
+      <header class="dash-header">
+        <h1>Welcome back, Hari Raja</h1>
+        <span class="status-online">● SOC Network Active</span>
+      </header>
+      <div class="grid-3">
+        <div class="stat-card">
+          <h4>Active Node</h4>
+          <p class="stat-num">10.0.0.12</p>
+        </div>
+        <div class="stat-card">
+          <h4>Leaves Remaining</h4>
+          <p class="stat-num">14 Days</p>
+        </div>
+        <div class="stat-card">
+          <h4>Security Rating</h4>
+          <p class="stat-num text-red">A+ (NSE Certified)</p>
+        </div>
+      </div>
+    </main>
+  </div>
 
+  <script src="main.js"></script>
 </body>
-
 </html>
